@@ -38,7 +38,7 @@ class TestCommentCreate:
         comment_data = {"text": "Это тестовый комментарий"}
         response = auth_client.post(f"/api/news/{news_id}/comments", json=comment_data)
 
-        assert response.status_code == 200, f"Ожидался 200, получен {response.status_code}"
+        assert response.status_code == 200, f" 200, получен {response.status_code}"
 
         data = response.json()
         parsed = CommentResponse(**data)
@@ -56,7 +56,7 @@ class TestCommentGet:
     def test_get_comments(self, client, news_id):
         response = client.get(f"/api/news/{news_id}/comments")
 
-        assert response.status_code == 200, f"Ожидался 200, получен {response.status_code}"
+        assert response.status_code == 200, f"200, получен {response.status_code}"
 
         data = response.json()
         assert isinstance(data, list)
@@ -67,4 +67,4 @@ class TestCommentGet:
     @pytest.mark.comments
     def test_get_comments_invalid_news(self, client):
         response = client.get("/api/news/99999999/comments")
-        assert response.status_code == 404, f"Ожидался 404, получен {response.status_code}"
+        assert response.status_code == 404, f"404, получен {response.status_code}"

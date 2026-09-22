@@ -31,7 +31,7 @@ class TestNewsCreate:
         news_data = {"title": "Тестовая новость", "text": "Текст тестовой новости для проверки", "subtitle": "Подзаголовок", "tags": "тест, автотест"}
         response = auth_client.post("/api/news/", data=news_data)
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = NewsResponse(**data)
@@ -56,7 +56,7 @@ class TestNewsCreateWithImage:
             data = {"title": "Новость с картинкой", "text": "Текст новости с изображением", "subtitle": "Подзаголовок", "tags": "тест"}
             response = auth_client.post("/api/news/", data=data, files=files)
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = NewsResponse(**data)
@@ -75,7 +75,7 @@ class TestNewsFilters:
     def test_news_pagination(self, client):
         response = client.get("/api/news/", params={"page": 1, "per_page": 5})
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = PaginatedNewsResponse(**data)
@@ -89,7 +89,7 @@ class TestNewsFilters:
     def test_news_search(self, client):
         response = client.get("/api/news/", params={"search": "тест"})
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = PaginatedNewsResponse(**data)
@@ -110,7 +110,7 @@ class TestNewsDetail:
 
         response = client.get(f"/api/news/{news_id}")
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = NewsResponse(**data)
@@ -123,7 +123,7 @@ class TestNewsDetail:
     def test_get_news_invalid_id(self, client):
         response = client.get("/api/news/99999999")
 
-        assert response.status_code == 404, f"404, получен {response.status_code}"
+        assert response.status_code == 404
 
 
 @allure.epic("Новости")
@@ -137,7 +137,7 @@ class TestNewsGet:
     def test_get_all_news(self, client):
         response = client.get("/api/news/")
 
-        assert response.status_code == 200, f"200, получили {response.status_code}"
+        assert response.status_code == 200, f"200
 
         data = response.json()
         parsed = PaginatedNewsResponse(**data)
@@ -153,7 +153,7 @@ class TestNewsGet:
     def test_get_all_tags(self, client):
         response = client.get("/api/news/tags")
 
-        assert response.status_code == 200, f"200, получ {response.status_code}"
+        assert response.status_code == 200, f"200
 
         data = response.json()
         assert isinstance(data, list)git remote add origin https://github.com/ТВОЙ_ЛОГИН/archiscope-api-tests.git

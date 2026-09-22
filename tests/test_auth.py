@@ -24,7 +24,7 @@ class TestRegister:
         user = generate_user()
         response = client.post("/api/auth/register", json=user)
 
-        assert response.status_code == 200, f"200, получен {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         parsed = UserResponse(**data)
@@ -40,7 +40,7 @@ class TestRegister:
         user = generate_user()
         client.post("/api/auth/register", json=user)
         response = client.post("/api/auth/register", json=user)
-        assert response.status_code == 400, f"ждем 400, получен {response.status_code}"
+        assert response.status_code == 400
 
     @allure.story("Регистрация с невалидными данными")
     @allure.severity(allure.severity_level.NORMAL)
@@ -49,7 +49,7 @@ class TestRegister:
     def test_register_invalid_data(self, client):
         invalid_user = {"email": "not-an-email", "first_name": "Test", "last_name": "User", "password": "123"}
         response = client.post("/api/auth/register", json=invalid_user)
-        assert response.status_code == 422, f" 422, падает {response.status_code}"
+        assert response.status_code == 422
 
 
 @allure.epic("Авторизация")
@@ -70,7 +70,7 @@ class TestLogin:
             "grant_type": "password"
         })
 
-        assert response.status_code == 200, f" 200, получ {response.status_code}"
+        assert response.status_code == 200
 
         data = response.json()
         token = Token(**data)
@@ -88,4 +88,4 @@ class TestLogin:
             "grant_type": "password"
         })
 
-        assert response.status_code == 401, f"Ожидал 401, получен {response.status_code}"
+        assert response.status_code == 401
